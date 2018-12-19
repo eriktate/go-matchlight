@@ -14,26 +14,26 @@ const (
 
 // A ProjectService can interact with MatchLight projects.
 type ProjectService interface {
-	Add(req AddProjectReq) (AddProjectRes, error)
-	List(projectType ProjectType) ([]Project, error)
-	Delete(uploadToken string) error
-	Edit(uploadToken, name string) (Project, error)
-	Get(uploadToken string) (Project, error)
+	AddProject(req AddProjectReq) (AddProjectRes, error)
+	ListProjects(projectType ProjectType) ([]Project, error)
+	DeleteProject(uploadToken string) error
+	EditProject(uploadToken, name string) (Project, error)
+	GetProject(uploadToken string) (Project, error)
 }
 
 // AddProjectReq is the request for project.Add.
 type AddProjectReq struct {
-	Name string `json:"name"`
-	// TODO: Make an enum for this.
-	Type           string `json:"type"`
-	AlertThreshold *uint  `json:"alert_notification_threshold,omitempty"`
+	Name           string      `json:"name"`
+	Type           ProjectType `json:"type"`
+	AlertThreshold *uint       `json:"alert_notification_threshold,omitempty"`
 }
 
 // AddProjectRes is the response from project.Add.
 type AddProjectRes struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	UploadToken string `json:"upload_token"`
+	ID          string      `json:"id"`
+	Name        string      `json:"project_name"`
+	Type        ProjectType `json:"project_type"`
+	UploadToken string      `json:"project_upload_token"`
 }
 
 // A Project represents a Matchlight project.
